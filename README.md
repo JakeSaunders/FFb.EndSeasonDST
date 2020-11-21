@@ -1,4 +1,4 @@
-# FFb.EndSeasonDST
+# Which Fantasy Football Defense has the Weakest Strenght of Schedule for the Fantasy playoffs?
 
 The R code in **playoff.DST.R** makes a heatmap showing which NFL Defense have the weakest strenth of schedule during the weeks of the fantasy playoffs. It requires two csv files as inputs, which I copy-pasted and manual cleaned from ESPN.com's NFL fantasy interface. 
 
@@ -12,4 +12,3 @@ The R code in **playoff.DST.R** makes a heatmap showing which NFL Defense have t
  A Heat map of 2020 fansty playoffs showing team defenses with easiest strength of schedule as of 2020 - 11 - 21. 
  
  ![Heatmap of 2020 DST strengh of schedule](Playoff.DST.png)
-Format: ![Alt Text](url)
