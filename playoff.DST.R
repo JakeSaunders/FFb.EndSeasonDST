@@ -1,16 +1,17 @@
-# set dir and load data 
-setwd("C:/Users/saundecj/Google Drive/@R/fantasy.football/FFb2020/EndSeasonDST")
+# set dir and load data -----
+#install.packages("pheatmap")
+#setwd("FFb2020/EndSeasonDST")
 sch <-  read.csv("schedule.csv",stringsAsFactors = F)[1:32,]
 rnk <- read.csv("Rankings.csv",stringsAsFactors = F)
 
-#clean data
+#clean data -----
 rnk$OPRK <- as.numeric(sub("st|nd|rd|th","",rnk$OPRK))
 getRanks <- rnk$OPRK
 getRanks <- c(getRanks,NA)
 names(getRanks) <- c(sub("\\s","",rnk$OPP), "BYE")
 sch$PLAYER <- sub("\\sD/ST","",sch$PLAYER)
 
-#check things are working
+#check things are working -----
 getRanks
 getRanks["BYE"]
 getRanks["Atl"]
@@ -27,18 +28,18 @@ sch$OPP[ sch$OPP %in% names(getRanks)]
 getRanks[ sch$OPP %in% names(getRanks)]
 
 
-# add columns with num rank
+# add columns with num rank -----
 sch$wk14rnk <- getRanks[sch$NFL.WEEK.14]
 sch$wk15rnk <- getRanks[sch$NFL.WEEK.15]
 sch$wk16rnk <- getRanks[sch$NFL.WEEK.16]
 
-# make more workerable df
+# make more workerable df -----
 df <- sch[,c(1,6:8,10:12)]
 rownames(df) <- df$PLAYER
 df$avg <- round(rowMeans(df[,5:7]),2)
 df$sd <- round(apply(df[,5:7],1,sd),2)
     
-#make heat map
+#make heat map -----
 hm <- df[,5:7]
 rownames(hm) <- df[,1]
 hm
@@ -58,14 +59,6 @@ pheatmap::pheatmap(
     number_color = "orange",
     fontsize_number = 12,
     main = "DST with Weakest Fantasy Playoff Schedule"
-)
-
-barplot(
-    height = df$avg[order(df$avg)],
-    names.arg = df$PLAYER[order(df$avg)],
-    las=2,cex.axis = 0.75,
-    ylab="Avg Opponent Rank",
-    main="DST with Weakest Fantasy Playoff Schedule"
 )
 
 
